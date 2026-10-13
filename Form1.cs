@@ -18,7 +18,7 @@ namespace MP4_to_Gif_Converter
         }
 
         private void dragEnter(object? sender, DragEventArgs e)
-    {   
+        {
             // Check is file is mp4 file
             if (e.Data?.GetData(DataFormats.FileDrop) is string[] files &&
                 files.Any(file =>
@@ -32,8 +32,8 @@ namespace MP4_to_Gif_Converter
             {
                 e.Effect = DragDropEffects.None;
             }
-     }
-  
+        }
+
         private void dragDrop(object? sender, DragEventArgs e)
         {
             if (e.Data?.GetData(DataFormats.FileDrop) is not string[] files)
