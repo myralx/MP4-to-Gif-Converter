@@ -1,6 +1,6 @@
 ﻿namespace MP4_to_Gif_Converter
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         ///  Required designer variable.

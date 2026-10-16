@@ -1,10 +1,10 @@
 namespace MP4_to_Gif_Converter
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         private readonly List<string> selectedFiles = new();
 
-        public Form1()
+        public Main()
         {
             InitializeComponent();
 
