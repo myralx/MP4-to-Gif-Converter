@@ -56,6 +56,7 @@
             convertButton.TabIndex = 1;
             convertButton.Text = "Convert";
             convertButton.UseVisualStyleBackColor = true;
+            convertButton.Click += convertButton_Click;
             // 
             // Form1
             // 
@@ -64,7 +65,6 @@
             ClientSize = new Size(800, 450);
             Controls.Add(convertButton);
             Controls.Add(dropLabel);
-            Enabled = false;
             Name = "Form1";
             Text = "MP4 to Gif";
             Load += Form1_Load;
