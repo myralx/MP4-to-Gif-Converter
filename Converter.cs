@@ -4,10 +4,8 @@ namespace MP4_to_Gif_Converter
 {
     internal static class Converter
     {
-        public static async Task ConvertFile(string input)
+        public static async Task ConvertFile(string input, string ffmpegPath)
         {
-            string ffmpegPath = "ffmpeg.exe";
-
             string output = Path.ChangeExtension(input, ".gif");
 
             // Prevent duplicate file names / overwriting

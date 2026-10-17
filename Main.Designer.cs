@@ -58,14 +58,14 @@
             convertButton.UseVisualStyleBackColor = true;
             convertButton.Click += convertButton_Click;
             // 
-            // Form1
+            // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(convertButton);
             Controls.Add(dropLabel);
-            Name = "Form1";
+            Name = "Main";
             Text = "MP4 to Gif";
             Load += Form1_Load;
             ResumeLayout(false);

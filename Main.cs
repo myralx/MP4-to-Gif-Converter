@@ -3,6 +3,7 @@ namespace MP4_to_Gif_Converter
     public partial class Main : Form
     {
         private readonly List<string> selectedFiles = new();
+        private string ffmpegPath = Path.Combine(AppContext.BaseDirectory, "ffmpeg", "ffmpeg.exe");
 
         public Main()
         {
@@ -17,6 +18,50 @@ namespace MP4_to_Gif_Converter
             this.DragDrop += dragDrop;
 
             convertButton.Click += convert;
+            Shown += checkFFmpeg;
+        }
+        private async void checkFFmpeg(object? sender, EventArgs e)
+        {
+            if (File.Exists(ffmpegPath))
+                return;
+
+            // Prevent interaction during setup
+            convertButton.Enabled = false;
+            dropLabel.AllowDrop = false;
+            this.AllowDrop = false;
+
+            try
+            {
+                DialogResult choice = MessageBox.Show(
+                    "Download Required",
+                    "Download now?",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (choice == DialogResult.No)
+                {
+                    Close();
+                    return;
+                }
+
+                dropLabel.Text = "Downloading...";
+                ffmpegPath = await FFmpegHelper.Download();
+
+                dropLabel.Text = "Drop your MP4 files here!";
+            }
+            catch (Exception error)
+            {
+                dropLabel.Text = "FFmpeg download failed.";
+                MessageBox.Show(error.Message, "Download failed");
+            }
+            finally
+            {
+                bool ready = File.Exists(ffmpegPath);
+
+                dropLabel.AllowDrop = ready;
+                this.AllowDrop = ready;
+                convertButton.Enabled = ready && selectedFiles.Count > 0;
+            }
         }
 
         private async void convert(object? sender, EventArgs e)
@@ -30,13 +75,14 @@ namespace MP4_to_Gif_Converter
             this.AllowDrop = false;
 
             // Runs the converter
-            try 
+            try
             {
+
                 for (int i = 0; i < selectedFiles.Count; i++)
                 {
                     dropLabel.Text = $"Converting {i + 1} of {selectedFiles.Count}...";
 
-                    await Converter.ConvertFile(selectedFiles[i]);
+                    await Converter.ConvertFile(selectedFiles[i], ffmpegPath);
                 }
 
                 selectedFiles.Clear();
@@ -44,7 +90,7 @@ namespace MP4_to_Gif_Converter
             }
 
             // Error handling
-            catch (Exception error) 
+            catch (Exception error)
             {
                 dropLabel.Text = "Conversion stopped.";
                 MessageBox.Show(error.Message, "Conversion failed");
