@@ -57,7 +57,7 @@ namespace MP4_to_Gif_Converter
             finally
             {
                 bool ready = File.Exists(ffmpegPath);
-
+                
                 dropLabel.AllowDrop = ready;
                 this.AllowDrop = ready;
                 convertButton.Enabled = ready && selectedFiles.Count > 0;
@@ -73,6 +73,9 @@ namespace MP4_to_Gif_Converter
             convertButton.Enabled = false;
             dropLabel.AllowDrop = false;
             this.AllowDrop = false;
+
+            UseWaitCursor = true;
+            Cursor.Current = Cursors.WaitCursor; // Uses the "loading" cursor
 
             // Runs the converter
             try
@@ -99,6 +102,9 @@ namespace MP4_to_Gif_Converter
             // Re-enables everything once conversion finished (or fails)
             finally
             {
+                UseWaitCursor = false;
+                Cursor.Current = Cursors.Default; // Sets cursor back to default
+
                 dropLabel.AllowDrop = true;
                 this.AllowDrop = true;
                 convertButton.Enabled = selectedFiles.Count > 0;
