@@ -30,6 +30,7 @@
         {
             dropLabel = new Label();
             convertButton = new Button();
+            conversionProgress = new ProgressBar();
             SuspendLayout();
             // 
             // dropLabel
@@ -58,11 +59,22 @@
             convertButton.UseVisualStyleBackColor = true;
             convertButton.Click += convertButton_Click;
             // 
+            // conversionProgress
+            // 
+            conversionProgress.Location = new Point(221, 248);
+            conversionProgress.MarqueeAnimationSpeed = 30;
+            conversionProgress.Name = "conversionProgress";
+            conversionProgress.Size = new Size(358, 18);
+            conversionProgress.Style = ProgressBarStyle.Marquee;
+            conversionProgress.TabIndex = 2;
+            conversionProgress.Visible = false;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(conversionProgress);
             Controls.Add(convertButton);
             Controls.Add(dropLabel);
             Name = "Main";
@@ -75,5 +87,6 @@
 
         private Label dropLabel;
         private Button convertButton;
+        private ProgressBar conversionProgress;
     }
 }

@@ -100,6 +100,7 @@ namespace MP4_to_Gif_Converter
 
             UseWaitCursor = true;
             Cursor.Current = Cursors.WaitCursor; // Uses the "loading" cursor
+            conversionProgress.Visible = true; // Shows the loading bar
 
             // Runs the converter
             try
@@ -144,6 +145,7 @@ namespace MP4_to_Gif_Converter
             {
                 UseWaitCursor = false;
                 Cursor.Current = Cursors.Default; // Sets cursor back to default
+                conversionProgress.Visible = false; // Hides loading bar
 
                 dropLabel.AllowDrop = true;
                 this.AllowDrop = true;
